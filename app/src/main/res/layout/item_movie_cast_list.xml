@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/item_cast_list_image"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        android:src="@drawable/cast_example"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/item_cast_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:textAlignment="center"
+        android:text="@string/movie_cast_name_example"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

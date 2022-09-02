@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.bbj.kinono.view.fragment.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_movieFragment"
+            app:destination="@id/movieFragment"
+            app:enterAnim="@anim/slide_left_enter"
+            app:exitAnim="@anim/slide_left_exit"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_right_enter"
+            app:popExitAnim="@anim/slide_right_exit"
+            app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_seeMoreMovieFragment"
+            app:destination="@id/seeMoreMovieFragment"
+            app:enterAnim="@anim/slide_up_enter"
+            app:exitAnim="@anim/zoom_out_exitr"
+            app:popEnterAnim="@anim/zoom_in_enter"
+            app:popExitAnim="@anim/slide_down_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.bbj.kinono.view.fragment.MovieFragment"
+        android:label="MovieFragment" >
+        <action
+            android:id="@+id/action_movieFragment_to_seeMoreCastFragment"
+            app:destination="@id/seeMoreCastFragment"
+            app:enterAnim="@anim/slide_up_enter"
+            app:exitAnim="@anim/zoom_out_exitr"
+            app:popEnterAnim="@anim/zoom_in_enter"
+            app:popExitAnim="@anim/slide_down_exit"
+            app:popUpTo="@id/movieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seeMoreCastFragment"
+        android:name="com.bbj.kinono.view.fragment.SeeMoreCastFragment"
+        android:label="SeeMoreCastFragment" />
+    <fragment
+        android:id="@+id/seeMoreMovieFragment"
+        android:name="com.bbj.kinono.view.fragment.SeeMoreMovieFragment"
+        android:label="SeeMoreMovieFragment" >
+        <action
+            android:id="@+id/action_seeMoreMovieFragment_to_movieFragment"
+            app:destination="@id/movieFragment"
+            app:enterAnim="@anim/slide_left_enter"
+            app:exitAnim="@anim/slide_left_exit"
+            app:popEnterAnim="@anim/slide_right_enter"
+            app:popExitAnim="@anim/slide_right_exit"
+            app:popUpTo="@id/seeMoreMovieFragment" />
+    </fragment>
+</navigation>

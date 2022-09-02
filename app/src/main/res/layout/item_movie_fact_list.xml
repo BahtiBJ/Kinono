@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_medium"
+        android:src="@drawable/dot"
+        tools:ignore="ImageContrastCheck"
+        android:contentDescription="@string/content_describtion" />
+
+    <TextView
+        android:id="@+id/item_fact_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_medium"
+        android:text="@string/movie_fact_example"
+        android:textColor="@color/black"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

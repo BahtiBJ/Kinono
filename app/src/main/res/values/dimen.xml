@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_big">25dp</dimen>
+    <dimen name="margin_medium">15dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_min">5dp</dimen>
+
+    <dimen name="margin_20">20dp</dimen>
+
+
+
+    <dimen name="text_size_big">22sp</dimen>
+    <dimen name="text_size_medium">17sp</dimen>
+    <dimen name="text_size">12sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_small">13sp</dimen>
+    
+    <dimen name="movie_characteristic_text_size">12sp</dimen>
+
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/bg_2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/search_search_field"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:drawableStart="@drawable/baseline_search_black_24"
+        android:background="@drawable/solid_round_shape"
+        android:hint="@string/search_field_hint"
+        android:imeActionId="666"
+        android:imeOptions="actionGo"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="10dp"
+        android:paddingEnd="4dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_result_list"
+        android:background="#C6FFFFFF"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_small"
+        tools:listitem="@layout/item_home_popular_list"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/search_search_field"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/search_progress_bar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:visibility="gone"
+        android:elevation="5dp"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:indeterminate="true"
+        android:padding="7dp"
+        android:background="@color/white_dark"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/yellow"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_search_field"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

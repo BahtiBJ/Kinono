@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Kinono</string>
+    <string name="premiere">Премьеры</string>
+    <string name="popular">Популярное</string>
+    <string name="see_more">Подробнее</string>
+    <string name="content_describtion">Content</string>
+    <string name="rating">Рейтинг</string>
+    <string name="directed">Режжисёр</string>
+    <string name="country">Страны</string>
+    <string name="genre">Жанры</string>
+    <string name="year">Год</string>
+    <string name="studio">Студия</string>
+    <string name="age_limit">Возраст</string>
+    <string name="duration">Длительность</string>
+    <string name="describtion">Описание</string>
+    <string name="read_more">…Читать полностью</string>
+    <string name="cast">В главных ролях</string>
+    <string name="facts">Интересные факты</string>
+    <string name="to_favorite">В избранное</string>
+    <string name="search_field_hint">Введите название фильма</string>
+
+    <string name="home_page">Главная</string>
+    <string name="search_page">Поиск</string>
+    <string name="favorite_page">Избранное</string>
+
+    <string name="year_sample">Год: %1$s</string>
+    <string name="genre_sample">Жанры: %1$s</string>
+    <string name="duration_sample">Длительность: %1$s</string>
+
+    <string name="load_more">Загрузить ещё</string>
+
+    <string name="error_text">Возникла проблема с получением данных\nПроверьте подключение к сети</string>
+    <string name="reconnect_message">Идёт переподключение</string>
+
+<!--    <string name="movie_name_example">Анчартед: На картах не значится</string>-->
+<!--    <string name="movie_describtion_example">Нейтан Дрейк и Виктор «Салли» Салливан, два искателя приключений, отправляются на поиски величайшего сокровища мира. Кроме того, они надеются найти улики, которые приведут их к давно потерянному брату Нейтана.</string>-->
+<!--    <string name="movie_describtion_example2">Нейтан Дрейк и Виктор «Салли» Салливан, два искателя приключений, отправляются на поиски величайшего сокровища мира. Кроме того, они надеются найти улики, которые приведут их к давно потерянному брату Нейтана.Нейтан Дрейк и Виктор «Салли» Салливан, два искателя приключений, отправляются на поиски величайшего сокровища мира. Кроме того, они надеются найти улики, которые приведут их к давно потерянному брату Нейтана.Нейтан Дрейк и Виктор «Салли» Салливан, два искателя приключений, отправляются на поиски величайшего сокровища мира. Кроме того, они надеются найти улики, которые приведут их к давно потерянному брату Нейтана.Нейтан Дрейк и Виктор «Салли» Салливан, два искателя приключений, отправляются на поиски величайшего сокровища мира. Кроме того, они надеются найти улики, которые приведут их к давно потерянному брату Нейтана.Нейтан Дрейк и Виктор «Салли» Салливан, два искателя приключений, отправляются на поиски величайшего сокровища мира. Кроме того, они надеются найти улики, которые приведут их к давно потерянному брату Нейтана.Нейтан Дрейк и Виктор «Салли» Салливан, два искателя приключений, отправляются на поиски величайшего сокровища мира. Кроме того, они надеются найти улики, которые приведут их к давно потерянному брату Нейтана.</string>-->
+<!--    <string name="movie_rating_example">9.5/10</string>-->
+<!--    <string name="movie_directed_example">Рубен Фляйшер</string>-->
+<!--    <string name="movie_country_example">США</string>-->
+<!--    <string name="movie_genre_example">приключения, боевик</string>-->
+<!--    <string name="movie_year_example">2022</string>-->
+<!--    <string name="movie_age_example">12+</string>-->
+<!--    <string name="movie_duration_example">115 мин</string>-->
+<!--    <string name="movie_cast_name_example">Том Холланд</string>-->
+<!--    <string name="movie_fact_example">В эпизоде, когда Нейт и Хлоя выходят на берег, на шезлонге лежит Нолан Норт – актёр, озвучивший и исполнивший роль Натана Дрейка в играх серии Uncharted.</string>-->
+<!--    <string name="movie_profession_example">Режиссёр</string>-->
+<!--    <string name="movie_character_example">Nathan Drake</string>-->
+
+    <string name="movie_name_example">(´｡• ω •｡)</string>
+    <string name="movie_describtion_example">\n\n\n</string>
+    <string name="movie_rating_example">9.9/10</string>
+    <string name="movie_directed_example" />
+    <string name="movie_country_example"/>
+    <string name="movie_genre_example"/>
+    <string name="movie_year_example"/>
+    <string name="movie_age_example">0+</string>
+    <string name="movie_duration_example">222 мин</string>
+    <string name="movie_cast_name_example"/>
+    <string name="movie_fact_example"/>
+    <string name="movie_profession_example"/>
+    <string name="movie_character_example"/>
+
+</resources>

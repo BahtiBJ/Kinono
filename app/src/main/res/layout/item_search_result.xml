@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/item_search_poster"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_medium"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        android:src="@drawable/poster_example"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/item_search_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_min"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/movie_name_example"
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/item_search_poster"
+        app:layout_constraintEnd_toStartOf="@+id/item_search_rating"
+        app:layout_constraintStart_toEndOf="@id/item_search_poster"/>
+
+    <TextView
+        android:id="@+id/item_search_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/black"
+        android:layout_marginEnd="@dimen/margin_min"
+        android:text="@string/movie_rating_example"
+        app:layout_constraintTop_toTopOf="@id/item_search_name"
+        app:layout_constraintBottom_toBottomOf="@id/item_search_name"
+        app:layout_constraintEnd_toStartOf="@id/search_orange_star"/>
+
+    <ImageView
+        android:id="@+id/search_orange_star"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:src="@drawable/orange_star"
+        app:layout_constraintBottom_toBottomOf="@id/item_search_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_search_name"
+        tools:ignore="ImageContrastCheck"
+        android:contentDescription="@string/content_describtion" />
+
+    <TextView
+        android:id="@+id/item_search_describtion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/movie_describtion_example"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_size_small"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@id/item_search_name"
+        app:layout_constraintStart_toEndOf="@id/item_search_poster"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
