@@ -1,6 +1,8 @@
 package com.bbj.kinono.view.fragment
 
 import android.animation.Animator
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +20,7 @@ import com.bbj.kinono.data.models.Film
 import com.bbj.kinono.data.models.PopularModel
 import com.bbj.kinono.data.models.common.StateModel
 import com.bbj.kinono.util.ID_KEY
+import com.bbj.kinono.view.NetworkObserver
 import com.bbj.kinono.util.dip2px
 import com.bbj.kinono.util.isOnline
 import com.bbj.kinono.view.MainActivity
@@ -48,6 +51,15 @@ class SeeMoreMovieFragment : Fragment() {
 
     private val adapter by lazy { MovieListAdapter(requireContext(), itemClick) }
 
+    private val networkObserver : NetworkObserver by lazy {
+        NetworkObserver(requireContext(), object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                claimData()
+                networkObserver.unregisterRequest()
+                super.onAvailable(network)
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -103,6 +115,7 @@ class SeeMoreMovieFragment : Fragment() {
                 }
                 is StateModel.Error -> {
                     seeMoreProgressBar.visibility = View.GONE
+                    --page
                     showError(state.error.localizedMessage ?: "NULL")
                 }
             }
@@ -117,12 +130,16 @@ class SeeMoreMovieFragment : Fragment() {
                 }
             }
         }
-
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun showError(errorText: String = resources.getString(R.string.error_text)) {
+        networkObserver.registerCallBack()
         Toast.makeText(requireContext(), errorText, Toast.LENGTH_LONG).show()
+    }
+
+    private fun claimData(){
+        viewModel.claimTopFilms(++page)
     }
 
     private fun moveView(view: View, visibility: Int) {

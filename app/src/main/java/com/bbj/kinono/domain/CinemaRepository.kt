@@ -16,7 +16,13 @@ interface CinemaRepository {
 
     suspend fun searchMovie(
         keyword: String,
-        page: Int = 1
+        page: Int,
+        countries: Int?,
+        genres: Int?,
+        ratingFrom: Int,
+        ratingTo: Int,
+        yearFrom: Int,
+        yearTo: Int
     ): SearchResultModel
 
     suspend fun getFavorite(): MovieDetailModel

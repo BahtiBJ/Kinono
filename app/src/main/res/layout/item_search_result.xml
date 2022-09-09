@@ -60,18 +60,45 @@
         android:contentDescription="@string/content_describtion" />
 
     <TextView
-        android:id="@+id/item_search_describtion"
+        android:id="@+id/item_search_year"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/movie_describtion_example"
+        android:text="@string/year_sample"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_size_small"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@id/item_search_name"
+        app:layout_constraintStart_toEndOf="@id/item_search_poster"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/item_search_country"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/country_sample"
         android:textColor="@color/gray"
         android:textSize="@dimen/text_size_small"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_small"
-        app:layout_constraintTop_toBottomOf="@id/item_search_name"
+        app:layout_constraintTop_toBottomOf="@id/item_search_year"
         app:layout_constraintStart_toEndOf="@id/item_search_poster"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/item_search_genre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/genre_sample"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_size_small"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@id/item_search_country"
+        app:layout_constraintStart_toEndOf="@id/item_search_poster"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

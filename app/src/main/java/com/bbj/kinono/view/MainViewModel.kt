@@ -147,19 +147,31 @@ class MainViewModel(
         }
     }
 
-    fun claimSearchResult(keyword: String, page: Int = 1) {
+    fun claimSearchResult(keyword: String,
+                          page: Int = 1,
+                          countries: Int? = null,
+                          genres: Int? = null,
+                          ratingFrom: Int = 0,
+                          ratingTo: Int = 10,
+                          yearFrom: Int = 1900,
+                          yearTo: Int = 2100) {
         _liveSearchResult.value = StateModel.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val searchResult = searchUseCase.execute(keyword, page)
+                val searchResult = searchUseCase.execute(keyword,
+                    page,
+                    countries,
+                    genres,
+                    ratingFrom,
+                    ratingTo,
+                    yearFrom,
+                    yearTo)
                 withContext(Dispatchers.Main) {
                     _liveSearchResult.value = StateModel.Success(searchResult)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    withContext(Dispatchers.Main) {
                         _liveSearchResult.value = StateModel.Error(error = e)
-                    }
                 }
             }
         }

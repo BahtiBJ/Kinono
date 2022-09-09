@@ -14,14 +14,14 @@ class CinemaRepositoryImpl(private val networkDAO: NetworkDAO) : CinemaRepositor
             calendar.get(Calendar.YEAR), Month.of(calendar.get(Calendar.MONTH))
         )
 
-    private var savedMovieDetail : Pair<Int,MovieDetailModel>? = null
-    private var savedMovieCast : Pair<Int,MovieCastModel>? = null
-    private var savedMovieFacts : Pair<Int,MovieFactModel>? = null
-    private var savedSearchResult : Triple<String,Int,SearchResultModel>? = null
+    private var savedMovieDetail: Pair<Int, MovieDetailModel>? = null
+    private var savedMovieCast: Pair<Int, MovieCastModel>? = null
+    private var savedMovieFacts: Pair<Int, MovieFactModel>? = null
+    private var savedSearchResult: Triple<String, Int, SearchResultModel>? = null
 
     override suspend fun getPopular(page: Int): PopularModel {
         val response = networkDAO.getPopular(page)
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             return response.body()!!
         } else {
             throw Exception(response.errorBody().toString())
@@ -29,8 +29,8 @@ class CinemaRepositoryImpl(private val networkDAO: NetworkDAO) : CinemaRepositor
     }
 
     override suspend fun getPremiere(): PremiereModel {
-        val response = networkDAO.getPremiere(today.first,today.second)
-        if (response.isSuccessful){
+        val response = networkDAO.getPremiere(today.first, today.second)
+        if (response.isSuccessful) {
             return response.body()!!
         } else {
             throw Exception(response.errorBody().toString())
@@ -43,9 +43,9 @@ class CinemaRepositoryImpl(private val networkDAO: NetworkDAO) : CinemaRepositor
                 return savedMovieDetail!!.second
         }
         val response = networkDAO.getMovieById(id)
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             val movieDetail = response.body()!!
-            savedMovieDetail = Pair(id,movieDetail)
+            savedMovieDetail = Pair(id, movieDetail)
             return movieDetail
         } else {
             throw Exception(response.errorBody().toString())
@@ -58,7 +58,7 @@ class CinemaRepositoryImpl(private val networkDAO: NetworkDAO) : CinemaRepositor
                 return savedMovieCast!!.second
         }
         val response = networkDAO.getCast(id)
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             val movieCast = response.body()!!
             savedMovieCast = Pair(id, movieCast)
             return movieCast
@@ -73,7 +73,7 @@ class CinemaRepositoryImpl(private val networkDAO: NetworkDAO) : CinemaRepositor
                 return savedMovieFacts!!.second
         }
         val response = networkDAO.getMovieFactsById(id)
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             val movieFacts = response.body()!!
             savedMovieFacts = Pair(id, movieFacts)
             return movieFacts
@@ -82,15 +82,28 @@ class CinemaRepositoryImpl(private val networkDAO: NetworkDAO) : CinemaRepositor
         }
     }
 
-    override suspend fun searchMovie(keyword: String, page: Int): SearchResultModel {
-        savedMovieFacts?.let {
-            if (keyword == savedSearchResult?.first && page == savedSearchResult?.second)
-                return savedSearchResult!!.third
-        }
-        val response = networkDAO.searchByKeyword(keyword, page)
-        if (response.isSuccessful){
+    override suspend fun searchMovie(
+        keyword: String,
+        page: Int,
+        countries: Int?,
+        genres: Int?,
+        ratingFrom: Int,
+        ratingTo: Int,
+        yearFrom: Int,
+        yearTo: Int
+    ): SearchResultModel {
+        val response = networkDAO.searchByKeyword(
+            keyword,
+            page,
+            countries,
+            genres,
+            ratingFrom,
+            ratingTo,
+            yearFrom,
+            yearTo
+        )
+        if (response.isSuccessful) {
             val searchResult = response.body()!!
-            savedSearchResult = Triple(keyword,page,searchResult)
             return searchResult
         } else {
             throw Exception(response.errorBody().toString())

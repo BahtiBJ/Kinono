@@ -4,30 +4,34 @@ import com.bbj.kinono.data.models.common.Country
 import com.bbj.kinono.data.models.common.Genre
 
 data class SearchResultModel(
-    val films: List<FoundedFilm>,
-    val keyword: String,
-    val pagesCount: Int,
-    val searchFilmsCountResult: Int
+    val items: List<FoundedFilm>,
+    val total: Int,
+    val totalPages: Int
 )
 
 data class FoundedFilm(
     val countries: List<Country>,
-    val description: String,
-    val filmId: Int,
-    val filmLength: String,
     val genres: List<Genre>,
-    val nameEn: String,
+    val imdbId: String,
+    val kinopoiskId: Int,
+    val nameEn: Any,
+    val nameOriginal: String,
     val nameRu: String,
     val posterUrl: String,
     val posterUrlPreview: String,
-    val rating: String,
-    val ratingVoteCount: Int,
+    val ratingImdb: Double,
+    val ratingKinopoisk: Double,
     val type: String,
-    val year: String
-) {
-    fun getDuration() : String {
-        val duration = filmLength.split(":")
-        return duration[0] + "ч" + duration[1] + "мин"
+    val year: Int
+){
+
+    fun getCountryListString() : String{
+        var countryString = ""
+        for (i in 0 until countries.size){
+            val add = if ((i+1) % 2 == 0) "\n" else ""
+            countryString += countries[i].country + "," + add
+        }
+        return countryString.trim().dropLast(1)
     }
 
     fun getGenres() : String{
@@ -39,4 +43,6 @@ data class FoundedFilm(
 
     }
 }
+
+
 

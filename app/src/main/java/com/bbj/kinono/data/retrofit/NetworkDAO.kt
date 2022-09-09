@@ -19,17 +19,26 @@ interface NetworkDAO {
     suspend fun getPopular(@Query("page") page: Int): Response<PopularModel>
 
     @GET("v2.2/films/{id}")
-    suspend fun getMovieById(@Path("id") id : Int) : Response<MovieDetailModel>
+    suspend fun getMovieById(@Path("id") id: Int): Response<MovieDetailModel>
 
     @GET("v2.2/films/{id}/facts")
-    suspend fun getMovieFactsById(@Path("id") id : Int) :  Response<MovieFactModel>
+    suspend fun getMovieFactsById(@Path("id") id: Int): Response<MovieFactModel>
 
     @GET("v1/staff")
-    suspend fun getCast(@Query("filmId") id : Int) : Response<MovieCastModel>
+    suspend fun getCast(@Query("filmId") id: Int): Response<MovieCastModel>
 
-    @GET("v2.1/films/search-by-keyword")
-    suspend fun searchByKeyword(@Query("keyword") keyword : String,
-    @Query("page") page : Int) : Response<SearchResultModel>
+    @GET("v2.2/films?type=ALL")
+    suspend fun searchByKeyword(
+        @Query("keyword") keyword: String,
+        @Query("page") page: Int,
+        @Query("countries") countries: Int?,
+        @Query("genres") genres: Int?,
+        @Query("ratingFrom") ratingFrom: Int,
+        @Query("ratingTo") ratingTo: Int,
+        @Query("yearFrom") yearFrom: Int,
+        @Query("yearTo") yearTo: Int
+    ): Response<SearchResultModel>
 
-
+    @GET("v2.2/films/{id}/reviews")
+    suspend fun getMovieReviewsById(@Path("id") id: Int): Response<MovieFactModel>
 }

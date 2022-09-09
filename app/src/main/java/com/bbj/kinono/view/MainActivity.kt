@@ -1,5 +1,10 @@
 package com.bbj.kinono.view
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +31,7 @@ class MainActivity : AppCompatActivity(),NavigateInterface {
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-
+        supportFragmentManager
     }
 
     override fun navigateFromMainToMovieFragment(bundle: Bundle) {

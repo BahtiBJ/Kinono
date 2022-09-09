@@ -17,7 +17,7 @@
     <string name="cast">В главных ролях</string>
     <string name="facts">Интересные факты</string>
     <string name="to_favorite">В избранное</string>
-    <string name="search_field_hint">Введите название фильма</string>
+    <string name="search_field_hint">Название фильма</string>
 
     <string name="home_page">Главная</string>
     <string name="search_page">Поиск</string>
@@ -26,6 +26,7 @@
     <string name="year_sample">Год: %1$s</string>
     <string name="genre_sample">Жанры: %1$s</string>
     <string name="duration_sample">Длительность: %1$s</string>
+    <string name="country_sample">Страны: %1$s</string>
 
     <string name="load_more">Загрузить ещё</string>
 

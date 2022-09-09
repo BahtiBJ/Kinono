@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_root"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -8,27 +9,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/search_search_field"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:drawableStart="@drawable/baseline_search_black_24"
-        android:background="@drawable/solid_round_shape"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_field_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:endIconMode="clear_text"
         android:hint="@string/search_field_hint"
-        android:imeActionId="666"
-        android:imeOptions="actionGo"
-        android:inputType="text"
-        android:maxLines="1"
-        android:paddingStart="10dp"
-        android:paddingEnd="4dp"
-        android:textColor="@color/black"
+        app:hintTextColor="@color/gray_dark"
+        app:startIconDrawable="@drawable/baseline_search_black_24"
+        app:startIconTint="@color/black"
+        app:endIconTint="@color/black"
+        app:boxBackgroundColor="@color/white_dark"
+        app:boxStrokeColor="@color/black"
         android:textColorHint="@color/gray"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/search_filter_button"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_search_field"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:imeActionId="666"
+            android:imeOptions="actionGo"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:paddingEnd="4dp"
+            android:textColor ="@color/black"
+            android:textSize="20sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/search_filter_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@color/white_dark"
+        android:padding="15dp"
+        android:src="@drawable/baseline_filter_alt_24"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search_field_layout"
+        app:layout_constraintTop_toTopOf="@id/search_field_layout"
+        app:layout_constraintBottom_toBottomOf="@id/search_field_layout"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/search_chip_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/search_field_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </com.google.android.material.chip.ChipGroup>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_result_list"
@@ -39,7 +75,7 @@
         android:layout_marginTop="@dimen/margin_small"
         tools:listitem="@layout/item_home_popular_list"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/search_search_field"
+        app:layout_constraintTop_toBottomOf="@id/search_chip_group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -59,7 +95,7 @@
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_search_field"/>
+        app:layout_constraintTop_toBottomOf="@id/search_chip_group"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 package com.bbj.kinono.view.fragment
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -12,7 +12,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -23,18 +22,16 @@ import com.bbj.kinono.data.models.MovieDetailModel
 import com.bbj.kinono.data.models.MovieFactModel
 import com.bbj.kinono.data.models.common.StateModel
 import com.bbj.kinono.util.ID_KEY
+import com.bbj.kinono.view.NetworkObserver
 import com.bbj.kinono.util.isOnline
 import com.bbj.kinono.view.MainActivity
 import com.bbj.kinono.view.MainViewModel
 import com.bbj.kinono.view.NavigateInterface
 import com.bbj.kinono.view.adapter.CastListAdapter
 import com.bbj.kinono.view.adapter.FactListAdapter
-import com.bbj.kinono.view.adapter.OnListItemClick
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.lang.Exception
 import kotlin.properties.Delegates
 
 class MovieFragment : Fragment() {
@@ -47,6 +44,15 @@ class MovieFragment : Fragment() {
 
     private val factListAdapter by lazy { FactListAdapter(requireContext()) }
 
+    private val networkObserver : NetworkObserver by lazy {
+        NetworkObserver(requireContext(), object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                claimData()
+                networkObserver.unregisterRequest()
+                super.onAvailable(network)
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,8 +99,6 @@ class MovieFragment : Fragment() {
                             ratingAgeLimits.filter { it.isDigit() } + "+"
                         else "0+"
                         movieDuration.text = filmLength.toString() + " мин"
-
-
 
                         movieDescribtion.text = description
                     }
@@ -171,15 +175,20 @@ class MovieFragment : Fragment() {
         }
 
         if (requireContext().isOnline()) {
-            viewModel.claimMovieDetail(movieId)
-            viewModel.claimMovieCast(movieId)
-            viewModel.claimMovieFact(movieId)
+            claimData()
         } else
             showError()
 
     }
 
+    private fun claimData(){
+        viewModel.claimMovieDetail(movieId)
+        viewModel.claimMovieCast(movieId)
+        viewModel.claimMovieFact(movieId)
+    }
+
     private fun showError(errorText : String = resources.getString(R.string.error_text)){
+        networkObserver.registerCallBack()
         Toast.makeText(requireContext(),errorText, Toast.LENGTH_LONG).show()
     }
 
@@ -191,19 +200,4 @@ class MovieFragment : Fragment() {
             .fit()
             .into(poster)
     }
-
-    private class CustomTarget(private val loadBitmap : (bitmap : Bitmap) -> Unit) : Target {
-        override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-            loadBitmap(bitmap!!)
-        }
-
-        override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-            loadBitmap(errorDrawable!!.toBitmap())
-        }
-
-        override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            loadBitmap(placeHolderDrawable!!.toBitmap(200,200))
-        }
-    }
-
 }

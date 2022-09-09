@@ -34,8 +34,6 @@ data class Film(
             genresString += "${genre.genre},"
         }
         return genresString.trim().dropLast(1)
-
     }
-
 }
 

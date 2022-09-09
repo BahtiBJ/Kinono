@@ -1,5 +1,7 @@
 package com.bbj.kinono.view.fragment
 
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.bbj.kinono.data.models.PopularModel
 import com.bbj.kinono.data.models.PremiereModel
 import com.bbj.kinono.data.models.common.StateModel
 import com.bbj.kinono.util.ID_KEY
+import com.bbj.kinono.view.NetworkObserver
 import com.bbj.kinono.util.isOnline
 import com.bbj.kinono.view.MainViewModel
 import com.bbj.kinono.view.NavigateInterface
@@ -29,7 +32,7 @@ class HomeFragment : Fragment() {
 
     private var isRequestData = false
 
-    val viewModel by sharedViewModel<MainViewModel>()
+    private val viewModel by sharedViewModel<MainViewModel>()
 
     private val itemClick by lazy {
         object : OnListItemClick {
@@ -42,6 +45,16 @@ class HomeFragment : Fragment() {
 
     private val premiereListAdapter by lazy { PreviewListAdapter(requireContext(), itemClick) }
     private val popularAdapter by lazy { MovieListAdapter(requireContext(), itemClick) }
+
+    private val networkObserver : NetworkObserver by lazy {
+        NetworkObserver(requireContext(), object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                claimData()
+                networkObserver.unregisterRequest()
+                super.onAvailable(network)
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,28 +104,33 @@ class HomeFragment : Fragment() {
             }
         }
 
-
         if (requireContext().isOnline()) {
-            viewModel.claimPremiereList()
-            viewModel.claimPopularList()
+            claimData()
         } else {
             showError()
         }
     }
 
-    override fun onPause() {
-        if (isRequestData && requireContext().isOnline()) {
-            Toast.makeText(
-                requireContext(), resources.getString(R.string.reconnect_message), Toast.LENGTH_LONG
-            ).show()
-            viewModel.claimPremiereList()
-            viewModel.claimPopularList()
-            isRequestData = false
-        }
-        super.onPause()
+    private fun claimData(){
+        viewModel.claimPremiereList()
+        viewModel.claimPopularList()
     }
 
+
+//    override fun onPause() {
+//        if (isRequestData && requireContext().isOnline()) {
+//            Toast.makeText(
+//                requireContext(), resources.getString(R.string.reconnect_message), Toast.LENGTH_LONG
+//            ).show()
+//            viewModel.claimPremiereList()
+//            viewModel.claimPopularList()
+//            isRequestData = false
+//        }
+//        super.onPause()
+//    }
+
     private fun showError(errorText: String = resources.getString(R.string.error_text)) {
+        networkObserver.registerCallBack()
         isRequestData = true
         Toast.makeText(requireContext(), errorText, Toast.LENGTH_LONG).show()
     }

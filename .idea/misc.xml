@@ -8,20 +8,24 @@
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable-v24/circle_shape.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable-v24/solid_round_shape.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/baseline_bookmark_24.xml" value="0.204" />
+        <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/baseline_filter_alt_24.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/baseline_home_20.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/baseline_search_20.xml" value="0.204" />
+        <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/close_icon.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/dot.xml" value="0.204" />
+        <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/exit_icon_1(slot).xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/gradient.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/orange_round_shape.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/round_shape.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/solid_drawable.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/drawable/solid_round_shape.xml" value="0.204" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/fragment_dialog_filter.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/fragment_main.xml" value="0.22" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/fragment_movie.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/fragment_pager.xml" value="0.18" />
-        <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/fragment_search.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/fragment_see_more.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/include_fragment_movie_details.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidStudioProjects/Kinono/app/src/main/res/layout/item_home_popular_list.xml" value="0.5" />

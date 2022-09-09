@@ -17,8 +17,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SeeMoreCastFragment : Fragment() {
 
-    val viewModel by sharedViewModel<MainViewModel>()
-    val adapter by lazy { SeeMoreCastListAdapter(requireContext()) }
+    private val viewModel by sharedViewModel<MainViewModel>()
+    private val adapter by lazy { SeeMoreCastListAdapter(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

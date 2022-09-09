@@ -18,7 +18,6 @@ class SearchResultAdapter(context : Context, private val itemClick : OnListItemC
 
     private val res = context.resources
 
-
     private val list = arrayListOf<FoundedFilm>()
 
     fun add(element : FoundedFilm){
@@ -45,8 +44,10 @@ class SearchResultAdapter(context : Context, private val itemClick : OnListItemC
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.movieName.text = list[position].nameRu
-        holder.movieRating.text = list[position].rating + "/10"
-        holder.movieDescribtion.text = list[position].description
+        holder.movieRating.text = list[position].ratingKinopoisk.toString() + "/10"
+        holder.movieGenre.text = res.getString(R.string.genre_sample,list[position].getGenres())
+        holder.movieYear.text = res.getString(R.string.year_sample,list[position].year.toString())
+        holder.movieCountry.text = res.getString(R.string.country_sample,list[position].getCountryListString())
 
         val posterUrl = list[position].posterUrl
         if (posterUrl == "res") {
@@ -59,7 +60,7 @@ class SearchResultAdapter(context : Context, private val itemClick : OnListItemC
                 .fit()
                 .into(holder.moviePoster)
             holder.itemView.setOnClickListener {
-                itemClick.click(list[position].filmId)
+                itemClick.click(list[position].kinopoiskId)
             }
         }
     }
@@ -73,7 +74,9 @@ class SearchResultAdapter(context : Context, private val itemClick : OnListItemC
         val moviePoster = itemView.findViewById<ShapeableImageView>(R.id.item_search_poster)
         val movieName = itemView.findViewById<TextView>(R.id.item_search_name)
         val movieRating = itemView.findViewById<TextView>(R.id.item_search_rating)
-        val movieDescribtion = itemView.findViewById<TextView>(R.id.item_search_describtion)
+        val movieYear = itemView.findViewById<TextView>(R.id.item_search_year)
+        val movieCountry = itemView.findViewById<TextView>(R.id.item_search_country)
+        val movieGenre = itemView.findViewById<TextView>(R.id.item_search_genre)
     }
 
 }
