@@ -15,7 +15,7 @@ By clicking on a movie preview, a window opens with detailed information about t
 ![](illustrations/movie_detail.gif "Movie detail")
 
 # Structure
-Data obtained using an unofficial Kinopoisk API ([https://kinopoiskapiunofficial.tech/]).  
+Data obtained using an unofficial Kinopoisk API (https://kinopoiskapiunofficial.tech/).  
 
 The following frameworks were used: ViewModel with LiveData for MVVM, Navigation Compontent for navigation, Retrofit with OkHttp for network requests,
 Koin for dependency injection and Kotlin Coroutine for multithreading.
