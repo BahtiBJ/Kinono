@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.MovieCastModel
-import com.bbj.kinono.data.models.PersonModelItem
+import com.bbj.kinono.domain.models.CastingModel
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
@@ -16,14 +15,14 @@ class CastListAdapter(context: Context) : RecyclerView.Adapter<CastListAdapter.V
 
     private val inflater = LayoutInflater.from(context)
 
-    private val list = MovieCastModel()
+    private val list = arrayListOf<CastingModel>()
 
-    fun add(element : PersonModelItem){
+    fun add(element : CastingModel){
         list.add(element)
         notifyItemChanged(list.lastIndex)
     }
 
-    fun addAll(elementS: MovieCastModel){
+    fun addAll(elementS: List<CastingModel>){
         val lastIndex = list.lastIndex
         list.addAll(elementS)
         notifyItemRangeInserted(lastIndex + 1,elementS.size)
@@ -35,7 +34,7 @@ class CastListAdapter(context: Context) : RecyclerView.Adapter<CastListAdapter.V
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.personName.text = list[position].nameRu
+        holder.personName.text = list[position].name
         val posterUrl = list[position].posterUrl
         Picasso.get()
             .load(posterUrl)

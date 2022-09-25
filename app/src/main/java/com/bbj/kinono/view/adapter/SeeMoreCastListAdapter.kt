@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.MovieCastModel
-import com.bbj.kinono.data.models.PersonModelItem
+import com.bbj.kinono.domain.models.CastingModel
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
@@ -16,14 +15,14 @@ class SeeMoreCastListAdapter(context: Context) : RecyclerView.Adapter<SeeMoreCas
 
     private val inflater = LayoutInflater.from(context)
 
-    private val list = MovieCastModel()
+    private val list = ArrayList<CastingModel>()
 
-    fun add(element : PersonModelItem){
+    fun add(element : CastingModel){
         list.add(element)
         notifyItemChanged(list.lastIndex)
     }
 
-    fun addAll(elementS: MovieCastModel){
+    fun addAll(elementS: List<CastingModel>){
         list.addAll(elementS)
         notifyItemRangeInserted(0,elementS.size)
     }
@@ -34,9 +33,9 @@ class SeeMoreCastListAdapter(context: Context) : RecyclerView.Adapter<SeeMoreCas
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.personName.text = list[position].nameRu
-        holder.personProfession.text = list[position].professionText.dropLast(1)
-        val character = list[position].description
+        holder.personName.text = list[position].name
+        holder.personProfession.text = list[position].profession.dropLast(1)
+        val character = list[position].character
         holder.persomCharacter.text = if (character == "null") "" else character
 
         val posterUrl = list[position].posterUrl

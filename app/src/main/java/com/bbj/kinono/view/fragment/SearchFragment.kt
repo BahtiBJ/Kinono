@@ -19,9 +19,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.FoundedFilm
-import com.bbj.kinono.data.models.SearchResultModel
-import com.bbj.kinono.data.models.common.StateModel
+import com.bbj.kinono.domain.models.FoundedMovie
+import com.bbj.kinono.StateModel
 import com.bbj.kinono.util.ID_KEY
 import com.bbj.kinono.view.NetworkObserver
 import com.bbj.kinono.util.isOnline
@@ -101,11 +100,11 @@ class SearchFragment : Fragment(), FilterDialogFragment.OnFilterChanged {
 
         viewModel.liveSearchResult.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is StateModel.Success<*> -> {
-                    val searchResult = (state.data as SearchResultModel)
+                is StateModel.Success -> {
+                    val searchResult = state.data
                     pageCount = searchResult.totalPages
                     Log.d(TAG, "page count = $pageCount currentPage = $page")
-                    adapter.addAll(searchResult.items as ArrayList<FoundedFilm>)
+                    adapter.addAll(searchResult.items as ArrayList<FoundedMovie>)
                     searchProgressBar.visibility = View.GONE
                     searchResultList.visibility = View.VISIBLE
                 }
@@ -222,7 +221,6 @@ class SearchFragment : Fragment(), FilterDialogFragment.OnFilterChanged {
             yearTo
         }
         if (isFilterChanged && searchField?.text.toString().trim() != "") {
-            isFilterChanged = false
             claimData()
         }
     }
@@ -236,5 +234,10 @@ class SearchFragment : Fragment(), FilterDialogFragment.OnFilterChanged {
     private fun showError(errorText: String = resources.getString(R.string.error_text)) {
         networkObserver.registerCallBack()
         Toast.makeText(requireContext(), errorText, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        networkObserver.removeCallback()
+        super.onDestroy()
     }
 }

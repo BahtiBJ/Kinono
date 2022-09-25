@@ -1,45 +1,35 @@
 package com.bbj.kinono.view.adapter
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.Item
+import com.bbj.kinono.domain.models.PosterInfo
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
-class PreviewListAdapter(context: Context, private val itemClick: OnListItemClick) :
-    RecyclerView.Adapter<PreviewListAdapter.ViewHolder>() {
+class PosterListAdapter(context: Context, private val itemClick: OnListItemClick) :
+    RecyclerView.Adapter<PosterListAdapter.ViewHolder>() {
+
+    private val defaultPoster = "0"
 
     private val inflater = LayoutInflater.from(context)
 
-    private val resources = context.resources
+    private val itemPlaceholder = PosterInfo(0,defaultPoster)
 
-    private val itemPlaceholder = Item(listOf(),0
-        , listOf(), 0
-        , "", ""
-        , "res", ""
-        , "", 0
-    )
+    private val list = arrayListOf(itemPlaceholder,itemPlaceholder,itemPlaceholder)
 
-    private val list = arrayListOf<Item>().apply {
-        repeat(5){
-            add(itemPlaceholder)
-        }
-    }
-
-    fun add(element: Item) {
+    fun add(element: PosterInfo) {
         list.add(element)
         notifyItemChanged(list.lastIndex)
     }
 
-    fun addAll(elementS: ArrayList<Item>) {
+    fun addAll(elementS: List<PosterInfo>) {
         list.clear()
         list.addAll(elementS)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0,list.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -48,8 +38,8 @@ class PreviewListAdapter(context: Context, private val itemClick: OnListItemClic
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val posterUrl = list[position].posterUrl
-        if (posterUrl == "res") {
+        val posterUrl = list[position].posterURL
+        if (posterUrl == defaultPoster) {
             holder.moviePoster.setImageResource(R.color.white_dark)
         } else {
             Picasso.get()
@@ -59,7 +49,7 @@ class PreviewListAdapter(context: Context, private val itemClick: OnListItemClic
                 .fit()
                 .into(holder.moviePoster)
             holder.itemView.setOnClickListener {
-                itemClick.click(list[position].kinopoiskId)
+                itemClick.click(list[position].filmId)
             }
         }
     }

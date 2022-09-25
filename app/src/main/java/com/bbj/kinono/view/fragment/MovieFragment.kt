@@ -16,11 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.FactItem
-import com.bbj.kinono.data.models.MovieCastModel
-import com.bbj.kinono.data.models.MovieDetailModel
-import com.bbj.kinono.data.models.MovieFactModel
-import com.bbj.kinono.data.models.common.StateModel
+import com.bbj.kinono.domain.models.FactsModel
+import com.bbj.kinono.StateModel
 import com.bbj.kinono.util.ID_KEY
 import com.bbj.kinono.view.NetworkObserver
 import com.bbj.kinono.util.isOnline
@@ -66,6 +63,11 @@ class MovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        if (requireContext().isOnline()) {
+            claimData()
+        } else
+            showError()
+
         val background = view.findViewById<ImageView>(R.id.bg)
 
         val moviePoster = view.findViewById<ShapeableImageView>(R.id.movie_poster)
@@ -83,24 +85,23 @@ class MovieFragment : Fragment() {
 
         viewModel.liveMovieDetail.observe(viewLifecycleOwner){state ->
             when (state) {
-                is StateModel.Success<*> -> {
-                    val movieDetail = (state.data as MovieDetailModel)
+                is StateModel.Success -> {
+                    val movieDetail = state.data
                     describtionTitle.visibility = View.VISIBLE
-                    movieDetail.run {
-                        loadToImageView(posterUrl,background)
-                        loadToImageView(posterUrl,moviePoster)
+                    movieDetail.let {
+                        loadToImageView(it.posterURL,background)
+                        loadToImageView(it.posterURL,moviePoster)
                         background.setImageResource(R.drawable.gradient)
-                        movieName.text = nameRu
-                        movieYear.text = year.toString()
-                        movieCountry.text = getCountryListString()
-                        movieGenre.text = getGenres()
-                        movieRating.text = "$ratingKinopoisk/10"
-                        movieAgeLimit.text = if (ratingAgeLimits != null && ratingAgeLimits.length > 0)
-                            ratingAgeLimits.filter { it.isDigit() } + "+"
+                        movieName.text = it.movieName
+                        movieYear.text = it.movieYear
+                        movieCountry.text = it.movieCountry
+                        movieGenre.text = it.movieGenre
+                        movieRating.text = "${it.movieRating}/10"
+                        movieAgeLimit.text = if (it.movieAgeLimit != null && it.movieAgeLimit.length > 0)
+                            it.movieAgeLimit.filter { it.isDigit() } + "+"
                         else "0+"
-                        movieDuration.text = filmLength.toString() + " мин"
-
-                        movieDescribtion.text = description
+                        movieDuration.text = it.movieDuration + " мин"
+                        movieDescribtion.text = it.movieDescribtion
                     }
                 }
                 is StateModel.Loading -> {}
@@ -115,11 +116,12 @@ class MovieFragment : Fragment() {
 
         viewModel.liveMovieCast.observe(viewLifecycleOwner){state ->
             when (state) {
-                is StateModel.Success<*> -> {
+                is StateModel.Success -> {
+                    Toast.makeText(requireContext(),"Заходит в СУКСУСС!!",Toast.LENGTH_LONG).show()
                     castTextView.visibility = View.VISIBLE
                     castSeeMore.visibility = View.VISIBLE
                     movieCastList.visibility = View.VISIBLE
-                    val castList = (state.data as MovieCastModel)
+                    val castList = state.data
                     castListAdapter.addAll(castList)
                 }
                 is StateModel.Loading -> {
@@ -139,13 +141,13 @@ class MovieFragment : Fragment() {
 
         viewModel.liveMovieFact.observe(viewLifecycleOwner){state ->
             when (state) {
-                is StateModel.Success<*> -> {
-                    val factList = (state.data as MovieFactModel).items
+                is StateModel.Success -> {
+                    val factList = state.data
                     if (factList.size > 0) {
                         factTextView.visibility = View.VISIBLE
                         movieFactList.visibility = View.VISIBLE
                     }
-                    factListAdapter.addAll((factList as ArrayList<FactItem>))
+                    factListAdapter.addAll((factList as ArrayList<FactsModel>))
                 }
                 is StateModel.Loading -> {
                 }
@@ -174,10 +176,7 @@ class MovieFragment : Fragment() {
             (requireActivity() as NavigateInterface).navigateFromMainToSeeMoreCastFragment()
         }
 
-        if (requireContext().isOnline()) {
-            claimData()
-        } else
-            showError()
+
 
     }
 
@@ -199,5 +198,10 @@ class MovieFragment : Fragment() {
             .error(R.color.white_dark)
             .fit()
             .into(poster)
+    }
+
+    override fun onDestroy() {
+        networkObserver.removeCallback()
+        super.onDestroy()
     }
 }

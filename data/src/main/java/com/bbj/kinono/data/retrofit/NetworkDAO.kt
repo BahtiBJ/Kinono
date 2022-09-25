@@ -27,7 +27,7 @@ interface NetworkDAO {
     @GET("v1/staff")
     suspend fun getCast(@Query("filmId") id: Int): Response<MovieCastModel>
 
-    @GET("v2.2/films?type=ALL")
+    @GET("v2.2/films?type=ALL&order=RATING")
     suspend fun searchByKeyword(
         @Query("keyword") keyword: String,
         @Query("page") page: Int,

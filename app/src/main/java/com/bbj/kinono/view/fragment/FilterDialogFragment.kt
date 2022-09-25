@@ -60,6 +60,8 @@ class FilterDialogFragment(private val onFilterChanged: OnFilterChanged) : Dialo
         fun onFilterChange(genreId: Int, ratingFrom: Int, ratingTo: Int, yearFrom: Int, yearTo: Int)
     }
 
+    override fun getTheme(): Int = R.style.RoundedCornersDialog
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

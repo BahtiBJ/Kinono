@@ -16,9 +16,8 @@ import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.Film
-import com.bbj.kinono.data.models.PopularModel
-import com.bbj.kinono.data.models.common.StateModel
+import com.bbj.kinono.domain.models.PreviewModel
+import com.bbj.kinono.StateModel
 import com.bbj.kinono.util.ID_KEY
 import com.bbj.kinono.view.NetworkObserver
 import com.bbj.kinono.util.dip2px
@@ -26,7 +25,7 @@ import com.bbj.kinono.util.isOnline
 import com.bbj.kinono.view.MainActivity
 import com.bbj.kinono.view.MainViewModel
 import com.bbj.kinono.view.NavigateInterface
-import com.bbj.kinono.view.adapter.MovieListAdapter
+import com.bbj.kinono.view.adapter.PopularListAdapter
 import com.bbj.kinono.view.adapter.OnListItemClick
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -49,7 +48,7 @@ class SeeMoreMovieFragment : Fragment() {
         }
     }
 
-    private val adapter by lazy { MovieListAdapter(requireContext(), itemClick) }
+    private val adapter by lazy { PopularListAdapter(requireContext(), itemClick) }
 
     private val networkObserver : NetworkObserver by lazy {
         NetworkObserver(requireContext(), object : ConnectivityManager.NetworkCallback() {
@@ -101,11 +100,11 @@ class SeeMoreMovieFragment : Fragment() {
 
         viewModel.liveSeeMorePopular.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is StateModel.Success<*> -> {
-                    val popular = (state.data as PopularModel)
+                is StateModel.Success -> {
+                    val popular = state.data
                     pageCount = popular.pagesCount
                     seeMoreProgressBar.visibility = View.GONE
-                    adapter.addAll(popular.films as ArrayList<Film>)
+                    adapter.addAll(popular.films as ArrayList<PreviewModel>)
                     if (page > 1)
                         seeMoreList.scrollToPosition(adapter.itemCount * 4 / 5)
                 }
@@ -176,5 +175,10 @@ class SeeMoreMovieFragment : Fragment() {
                 })
             }
         }
+    }
+
+    override fun onDestroy() {
+        networkObserver.removeCallback()
+        super.onDestroy()
     }
 }

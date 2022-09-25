@@ -1,14 +1,14 @@
 package com.bbj.kinono.view.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.Film
-import com.bbj.kinono.data.models.FoundedFilm
+import com.bbj.kinono.domain.models.FoundedMovie
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
@@ -18,9 +18,9 @@ class SearchResultAdapter(context : Context, private val itemClick : OnListItemC
 
     private val res = context.resources
 
-    private val list = arrayListOf<FoundedFilm>()
+    private val list = arrayListOf<FoundedMovie>()
 
-    fun add(element : FoundedFilm){
+    fun add(element : FoundedMovie){
         list.add(element)
         notifyItemChanged(list.lastIndex)
     }
@@ -31,7 +31,7 @@ class SearchResultAdapter(context : Context, private val itemClick : OnListItemC
         notifyItemRangeRemoved(0,size)
     }
 
-    fun addAll(elements: ArrayList<FoundedFilm>){
+    fun addAll(elements: List<FoundedMovie>){
         val lastIndex = list.lastIndex
         list.addAll(elements)
         notifyItemRangeInserted(if (lastIndex == 0) 0 else (lastIndex + 1),elements.size)
@@ -43,24 +43,24 @@ class SearchResultAdapter(context : Context, private val itemClick : OnListItemC
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.movieName.text = list[position].nameRu
-        holder.movieRating.text = list[position].ratingKinopoisk.toString() + "/10"
-        holder.movieGenre.text = res.getString(R.string.genre_sample,list[position].getGenres())
-        holder.movieYear.text = res.getString(R.string.year_sample,list[position].year.toString())
-        holder.movieCountry.text = res.getString(R.string.country_sample,list[position].getCountryListString())
+        holder.movieName.text = list[position].name
+        holder.movieRating.text = list[position].rating + "/10"
+        holder.movieGenre.text = res.getString(R.string.genre_sample,list[position].genres)
+        holder.movieYear.text = res.getString(R.string.year_sample,list[position].year)
+        holder.movieCountry.text = res.getString(R.string.country_sample,list[position].countries)
 
-        val posterUrl = list[position].posterUrl
+        val posterUrl = list[position].posterURL
         if (posterUrl == "res") {
             holder.moviePoster.setImageResource(R.color.white_dark)
         } else {
             Picasso.get()
-                .load(list[position].posterUrl)
+                .load(list[position].posterURL)
                 .placeholder(R.color.white_dark)
                 .error(R.color.white_dark)
                 .fit()
                 .into(holder.moviePoster)
             holder.itemView.setOnClickListener {
-                itemClick.click(list[position].kinopoiskId)
+                itemClick.click(list[position].id)
             }
         }
     }

@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bbj.kinono.data.models.common.StateModel
+import com.bbj.kinono.StateModel
 import com.bbj.kinono.domain.*
+import com.bbj.kinono.domain.models.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -14,41 +15,41 @@ class MainViewModel(
     private val getPremiereUseCase: GetPremiereUseCase,
     private val getPopularUseCase: GetPopularUseCase,
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
-    private val getMovieCastUseCase: GetMovieCastUseCase,
+    private val getMovieCastUseCase: GetCastUseCase,
     private val getMovieFactUseCase: GetMovieFactUseCase,
     private val searchUseCase: SearchUseCase
 ) : ViewModel() {
 
     private val TAG = "MAINVIEWMODEL"
 
-    private val _livePremiere = MutableLiveData<StateModel>()
-    val livePremiere: LiveData<StateModel>
+    private val _livePremiere = MutableLiveData<StateModel<List<PosterInfo>>>()
+    val livePremiere: LiveData<StateModel<List<PosterInfo>>>
         get() = _livePremiere
 
-    private val _livePopular = MutableLiveData<StateModel>()
-    val livePopular: LiveData<StateModel>
+    private val _livePopular = MutableLiveData<StateModel<PreviewListModel>>()
+    val livePopular: LiveData<StateModel<PreviewListModel>>
         get() = _livePopular
 
-    private val _liveSeeMorePopular by lazy {MutableLiveData<StateModel>().apply {
+    private val _liveSeeMorePopular by lazy {MutableLiveData<StateModel<PreviewListModel>>().apply {
         value = livePopular.value
     }}
-    val liveSeeMorePopular: LiveData<StateModel>
+    val liveSeeMorePopular: LiveData<StateModel<PreviewListModel>>
         get() = _liveSeeMorePopular
 
-    private val _liveMovieDetail = MutableLiveData<StateModel>()
-    val liveMovieDetail: LiveData<StateModel>
+    private val _liveMovieDetail = MutableLiveData<StateModel<MovieInfo>>()
+    val liveMovieDetail: LiveData<StateModel<MovieInfo>>
         get() = _liveMovieDetail
 
-    private val _liveSearchResult = MutableLiveData<StateModel>()
-    val liveSearchResult: LiveData<StateModel>
+    private val _liveSearchResult = MutableLiveData<StateModel<SearchResult>>()
+    val liveSearchResult: LiveData<StateModel<SearchResult>>
         get() = _liveSearchResult
 
-    private val _liveMovieCast = MutableLiveData<StateModel>()
-    val liveMovieCast: LiveData<StateModel>
+    private val _liveMovieCast = MutableLiveData<StateModel<List<CastingModel>>>()
+    val liveMovieCast: LiveData<StateModel<List<CastingModel>>>
         get() = _liveMovieCast
 
-    private val _liveMovieFactState = MutableLiveData<StateModel>()
-    val liveMovieFact: LiveData<StateModel>
+    private val _liveMovieFactState = MutableLiveData<StateModel<List<FactsModel>>>()
+    val liveMovieFact: LiveData<StateModel<List<FactsModel>>>
         get() = _liveMovieFactState
 
     fun claimPremiereList() {
@@ -108,6 +109,7 @@ class MainViewModel(
                     _liveMovieDetail.value = StateModel.Success(movieDetail)
                 }
             } catch (e: Exception) {
+                throw e
                 withContext(Dispatchers.Main) {
                     _liveMovieDetail.value = StateModel.Error(error = e)
                 }
@@ -124,6 +126,7 @@ class MainViewModel(
                     _liveMovieCast.value = StateModel.Success(movieCast)
                 }
             } catch (e: Exception) {
+                throw e
                 withContext(Dispatchers.Main) {
                     _liveMovieCast.value = StateModel.Error(error = e)
                 }

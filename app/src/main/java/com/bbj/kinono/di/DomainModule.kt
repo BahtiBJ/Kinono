@@ -10,7 +10,7 @@ val domainModule = module {
     }
 
     factory {
-        GetMovieCastUseCase(get())
+        GetCastUseCase(get())
     }
 
     factory {

@@ -35,6 +35,12 @@ fun postDelay(delay : Long,run : () -> Unit){
     },delay)
 }
 
+fun postOnMainThread(run : () -> Unit){
+    Handler(Looper.getMainLooper()).post{
+        run()
+    }
+}
+
 fun dip2px(context: Context, dpValue: Float): Float {
     val scale: Float = context.getResources().getDisplayMetrics().density
     return (dpValue * scale + 0.5f)

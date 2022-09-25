@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Kinono"
 include ':app'
+include ':data'
+include ':domain'

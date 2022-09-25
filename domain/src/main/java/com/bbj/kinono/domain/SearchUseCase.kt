@@ -1,6 +1,7 @@
 package com.bbj.kinono.domain
 
-import com.bbj.kinono.data.models.SearchResultModel
+import com.bbj.kinono.domain.models.FoundedMovie
+import com.bbj.kinono.domain.models.SearchResult
 
 class SearchUseCase (val cinemaRepository: CinemaRepository) {
 
@@ -11,7 +12,7 @@ class SearchUseCase (val cinemaRepository: CinemaRepository) {
                         ratingFrom: Int,
                         ratingTo: Int,
                         yearFrom: Int,
-                        yearTo: Int) : SearchResultModel{
+                        yearTo: Int) : SearchResult {
         return cinemaRepository.searchMovie(keyword,
             page,
             countries,

@@ -8,8 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.MovieCastModel
-import com.bbj.kinono.data.models.common.StateModel
+import com.bbj.kinono.StateModel
 import com.bbj.kinono.view.MainActivity
 import com.bbj.kinono.view.MainViewModel
 import com.bbj.kinono.view.adapter.SeeMoreCastListAdapter
@@ -35,8 +34,8 @@ class SeeMoreCastFragment : Fragment() {
 
         viewModel.liveMovieCast.observe(viewLifecycleOwner){state ->
             when (state){
-                is StateModel.Success<*> -> {
-                    val castModel = (state.data as MovieCastModel)
+                is StateModel.Success -> {
+                    val castModel = state.data
                     adapter.addAll(castModel)
                 }
                 is StateModel.Loading -> {}
@@ -48,5 +47,6 @@ class SeeMoreCastFragment : Fragment() {
     private fun showError(errorText : String = resources.getString(R.string.error_text)){
         Toast.makeText(requireContext(),errorText, Toast.LENGTH_LONG).show()
     }
+
 
 }

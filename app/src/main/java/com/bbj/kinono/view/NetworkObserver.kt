@@ -7,7 +7,7 @@ import android.net.NetworkRequest
 
 class NetworkObserver(
     context: Context,
-    private val networkCallback: ConnectivityManager.NetworkCallback
+    private var networkCallback: ConnectivityManager.NetworkCallback?
 ) {
 
     private val connectivityManager =
@@ -20,11 +20,17 @@ class NetworkObserver(
             .build()
 
     fun registerCallBack() {
-        connectivityManager.requestNetwork(networkRequest, networkCallback)
+        if (networkCallback != null)
+            connectivityManager.requestNetwork(networkRequest, networkCallback!!)
     }
 
     fun unregisterRequest() {
-        connectivityManager.unregisterNetworkCallback(networkCallback)
+        if (networkCallback != null)
+            connectivityManager.unregisterNetworkCallback(networkCallback!!)
+    }
+
+    fun removeCallback() {
+        networkCallback = null
     }
 
 }

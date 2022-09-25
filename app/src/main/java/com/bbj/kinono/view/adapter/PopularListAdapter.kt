@@ -7,41 +7,41 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.Film
+import com.bbj.kinono.domain.models.MovieInfo
+import com.bbj.kinono.domain.models.PreviewModel
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
-class MovieListAdapter(context: Context, private val itemClick: OnListItemClick) :
-    RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class PopularListAdapter(context: Context, private val itemClick: OnListItemClick) :
+    RecyclerView.Adapter<PopularListAdapter.ViewHolder>() {
 
     private val inflater = LayoutInflater.from(context)
 
-    private val res = context.resources
-
     private var isInit = false
 
-    private val filmPlaceholder = Film(
-        listOf(), 0, "", listOf(), "", "", "res", "", "", 0, 0, ""
-    )
+//    private val filmPlaceholder = PreviewModel(
+//        0, "", "", "res", "", "","")
 
-    private val list = arrayListOf<Film>().apply {
-        repeat(5) {
-            add(filmPlaceholder)
-        }
-    }
 
-    fun add(element: Film) {
+    private val list = arrayListOf<PreviewModel>()
+//        .apply {
+//        repeat(5) {
+//            add(filmPlaceholder)
+//        }
+//    }
+
+    fun add(element: PreviewModel) {
         list.add(element)
         notifyItemChanged(list.lastIndex)
     }
 
-    fun initData(elements: ArrayList<Film>) {
+    fun initData(elements: List<PreviewModel>) {
         list.clear()
         list.addAll(elements)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0,list.size)
     }
 
-    fun addAll(elements: ArrayList<Film>) {
+    fun addAll(elements: List<PreviewModel>) {
         if (!isInit) {
             list.clear()
             isInit = true
@@ -57,33 +57,34 @@ class MovieListAdapter(context: Context, private val itemClick: OnListItemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.movieName.text = list[position].nameRu
+        holder.movieName.text = list[position].name
         val rating = list[position].rating
+        holder.itemView.resources
         holder.movieRating.text =
             if (!rating.equals("null", true)) rating + "/10" else "0/10"
 
-        val posterUrl = list[position].posterUrl
+        val posterUrl = list[position].posterURL
         if (posterUrl == "res") {
             holder.moviePoster.setImageResource(R.color.white_dark)
             holder.movieDuration.text =
-                res.getString(R.string.duration_sample, list[position].filmLength)
-            holder.movieGenre.text = res.getString(R.string.genre_sample, "")
+                holder.itemView.resources.getString(R.string.duration_sample, list[position].duration)
+            holder.movieGenre.text = holder.itemView.resources.getString(R.string.genre_sample, "")
         } else {
             Picasso.get()
-                .load(list[position].posterUrl)
+                .load(list[position].posterURL)
                 .placeholder(R.color.white_dark)
                 .error(R.color.white_dark)
                 .fit()
                 .into(holder.moviePoster)
             holder.movieDuration.text =
-                res.getString(R.string.duration_sample, list[position].getDuration())
+                holder.itemView.resources.getString(R.string.duration_sample, list[position].duration)
             holder.movieGenre.text =
-                res.getString(R.string.genre_sample, list[position].getGenres())
+                holder.itemView.resources.getString(R.string.genre_sample, list[position].genres)
             holder.itemView.setOnClickListener {
-                itemClick.click(list[position].filmId)
+                itemClick.click(list[position].id)
             }
         }
-        holder.movieYear.text = res.getString(R.string.year_sample, list[position].year)
+        holder.movieYear.text = holder.itemView.resources.getString(R.string.year_sample, list[position].year)
     }
 
 

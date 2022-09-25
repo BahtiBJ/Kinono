@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity(),NavigateInterface {
 
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        supportFragmentManager
     }
 
     override fun navigateFromMainToMovieFragment(bundle: Bundle) {

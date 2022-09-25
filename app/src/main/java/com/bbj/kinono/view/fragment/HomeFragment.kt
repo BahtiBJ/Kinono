@@ -11,19 +11,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bbj.kinono.R
-import com.bbj.kinono.data.models.Film
-import com.bbj.kinono.data.models.Item
-import com.bbj.kinono.data.models.PopularModel
-import com.bbj.kinono.data.models.PremiereModel
-import com.bbj.kinono.data.models.common.StateModel
+import com.bbj.kinono.StateModel
 import com.bbj.kinono.util.ID_KEY
 import com.bbj.kinono.view.NetworkObserver
 import com.bbj.kinono.util.isOnline
 import com.bbj.kinono.view.MainViewModel
 import com.bbj.kinono.view.NavigateInterface
-import com.bbj.kinono.view.adapter.MovieListAdapter
+import com.bbj.kinono.view.adapter.PopularListAdapter
 import com.bbj.kinono.view.adapter.OnListItemClick
-import com.bbj.kinono.view.adapter.PreviewListAdapter
+import com.bbj.kinono.view.adapter.PosterListAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class HomeFragment : Fragment() {
@@ -43,8 +39,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private val premiereListAdapter by lazy { PreviewListAdapter(requireContext(), itemClick) }
-    private val popularAdapter by lazy { MovieListAdapter(requireContext(), itemClick) }
+    private val premiereListAdapter by lazy { PosterListAdapter(requireContext(), itemClick) }
+    private val popularAdapter by lazy { PopularListAdapter(requireContext(), itemClick) }
 
     private val networkObserver : NetworkObserver by lazy {
         NetworkObserver(requireContext(), object : ConnectivityManager.NetworkCallback() {
@@ -77,8 +73,8 @@ class HomeFragment : Fragment() {
 
         viewModel.livePremiere.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is StateModel.Success<*> -> {
-                    premiereListAdapter.addAll((state.data as PremiereModel).items as ArrayList<Item>)
+                is StateModel.Success -> {
+                    premiereListAdapter.addAll(state.data)
                 }
                 is StateModel.Loading -> {}
                 is StateModel.Error -> {
@@ -92,9 +88,9 @@ class HomeFragment : Fragment() {
 
         viewModel.livePopular.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is StateModel.Success<*> -> {
+                is StateModel.Success -> {
                     seeMoreButton.isEnabled = true
-                    popularAdapter.initData((state.data as PopularModel).films as ArrayList<Film>)
+                    popularAdapter.initData(state.data.films)
                 }
                 is StateModel.Loading -> {}
                 is StateModel.Error -> {
@@ -116,22 +112,15 @@ class HomeFragment : Fragment() {
         viewModel.claimPopularList()
     }
 
-
-//    override fun onPause() {
-//        if (isRequestData && requireContext().isOnline()) {
-//            Toast.makeText(
-//                requireContext(), resources.getString(R.string.reconnect_message), Toast.LENGTH_LONG
-//            ).show()
-//            viewModel.claimPremiereList()
-//            viewModel.claimPopularList()
-//            isRequestData = false
-//        }
-//        super.onPause()
-//    }
-
     private fun showError(errorText: String = resources.getString(R.string.error_text)) {
         networkObserver.registerCallBack()
         isRequestData = true
         Toast.makeText(requireContext(), errorText, Toast.LENGTH_LONG).show()
     }
+
+    override fun onDestroy() {
+        networkObserver.removeCallback()
+        super.onDestroy()
+    }
+
 }
