@@ -19,16 +19,7 @@ class PopularListAdapter(context: Context, private val itemClick: OnListItemClic
 
     private var isInit = false
 
-//    private val filmPlaceholder = PreviewModel(
-//        0, "", "", "res", "", "","")
-
-
     private val list = arrayListOf<PreviewModel>()
-//        .apply {
-//        repeat(5) {
-//            add(filmPlaceholder)
-//        }
-//    }
 
     fun add(element: PreviewModel) {
         list.add(element)
